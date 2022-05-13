@@ -1,6 +1,4 @@
 var startButton = $("#start-button");
-var rightText = $(".user-is-right");
-var wrongText = $(".user-is-wrong");
 var questionDisplay = $("#questions");
 var choicesDisplay = $("#where-choices-go");
 var questionIndex = 0;
@@ -39,7 +37,9 @@ var questionsArray = [
     answer: "console.log",
   },
 ];
-// var displayQuestion = ;
+// vars for right/wrong answers
+var rightText = $(".user-is-right");
+var wrongText = $(".user-is-wrong");
 
 // vars for timer
 var timerEl = $("#timer");
@@ -47,12 +47,12 @@ var timer = 76;
 var penalty = 5;
 var score = 0;
 
-// var for scores
+// var for the scoreboard
 var scoreBoard = $("#high-scores");
-var finalAlert = $("#final-alert");
 var initialsBar = $("#initials-bar");
 var initialsBtn = $("initials-btn");
 
+// Default View
 timerEl.hide();
 scoreBoard.hide();
 choicesDisplay.hide();
@@ -61,11 +61,13 @@ rightText.hide();
 wrongText.hide();
 finalAlert.hide();
 
-//when click/event listener for starting quiz
+//EventListeners for StartQuiz, compareAsnwers, renderScores
 startButton.on("click", startQuiz);
 choicesDisplay.on("click", "button", compareAnswers);
 initialsBtn.on("click", renderScores);
 
+// startQuiz:
+// show timer, show multiChoice, set timer, if we run out of questions || timer === 0; run function endQuiz
 function startQuiz(event) {
   event.preventDefault();
   startButton.hide();
@@ -86,6 +88,7 @@ function startQuiz(event) {
   }, 1000);
 }
 
+// displaying Quiz Contents!
 function displayQuestions() {
   questionDisplay.empty();
   choicesDisplay.empty();
@@ -104,16 +107,14 @@ function displayQuestions() {
   }
 }
 
-//  //function for compareAsnwers
-
-// INSERT IF WRONG ANSWER, DEDUCT 5SECS
-
+//function for compareAsnwers
 function compareAnswers(event) {
   event.preventDefault();
   //   console.log($(this).text());
   var userClick = $(this).text();
   var rightAnswer = questionsArray[questionIndex].answer;
   if (userClick === rightAnswer) {
+    rightText.text("rightAnswer" + "! " + "YEEHAW!🤠 ");
     rightText.show(function () {
       setTimeout(() => {
         rightText.hide();
@@ -121,6 +122,7 @@ function compareAnswers(event) {
     });
   } else {
     timer -= penalty;
+    wrongText.text("The Correct Answer is" + "rightAnswer");
     wrongText.show(function () {
       setTimeout(() => {
         wrongText.hide();
@@ -131,6 +133,7 @@ function compareAnswers(event) {
   displayQuestions();
 }
 
+// function for endQuiz: display scores & local storage
 function endQuiz() {
   questionDisplay.hide();
   scoreBoard.show();
@@ -148,7 +151,7 @@ function endQuiz() {
   renderScores();
 }
 
-// **NEED SET ITEM FOR SCORES !!!
+// function for retreiving scores
 function renderScores(event) {
   event.preventDefault();
   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
