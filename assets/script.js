@@ -64,8 +64,10 @@ finalAlert.hide();
 //when click/event listener for starting quiz
 startButton.on("click", startQuiz);
 choicesDisplay.on("click", "button", compareAnswers);
+initialsBtn.on("click", renderScores);
 
-function startQuiz() {
+function startQuiz(event) {
+  event.preventDefault();
   startButton.hide();
   timerEl.show();
   choicesDisplay.show();
@@ -147,7 +149,8 @@ function endQuiz() {
 }
 
 // **NEED SET ITEM FOR SCORES !!!
-function renderScores() {
+function renderScores(event) {
+  event.preventDefault();
   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
   scoreBoard.empty();
   if (scoreBoard.legth === 0) {
