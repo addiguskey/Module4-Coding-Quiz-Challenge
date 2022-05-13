@@ -1,6 +1,7 @@
 var startButton = $("#start-button");
 //quiz content
-
+var rightText = $(".user-is-right");
+var wrongText = $(".user-is-wrong");
 var questionDisplay = $("#questions");
 var choicesDisplay = $("#where-choices-go");
 var questionIndex = 0;
@@ -55,33 +56,40 @@ timerEl.hide();
 scoreBoard.hide();
 choicesDisplay.hide();
 initialsBar.hide();
+rightText.hide();
+wrongText.hide();
+finalAlert.hide();
 
 //when click/event listener for starting quiz
 startButton.on("click", startQuiz);
+choicesDisplay.on("click", "button", compareAnswers);
 
 function startQuiz() {
   startButton.hide();
   timerEl.show();
   choicesDisplay.show();
-
+  displayQuestions();
   timer = 75;
   score = 0;
   var quizTimer = setInterval(() => {
     timer--;
     timerEl.text("Time Remaining: " + timer + "s");
 
-    if (timer == 0) {
+    if (timer == 0 || questionIndex === 5) {
       clearInterval(quizTimer);
       endQuiz();
-      timerEl.text("Time's up!");
+      timerEl.text("End of Quiz!");
     }
   }, 1000);
-  displayQuestions();
+  //   if (questionIndex === 4) {
+  //     clearInterval(quizTimer);
+  //     endQuiz();
+  //   }
 }
 
 function displayQuestions() {
-  questionDisplay.innerHTML = "";
-  choicesDisplay.innerHTML = "";
+  questionDisplay.empty();
+  choicesDisplay.empty();
 
   for (var i = 0; i < questionsArray.length; i++) {
     var userQuestions = questionsArray[questionIndex].question;
@@ -90,7 +98,7 @@ function displayQuestions() {
   var userChoices = questionsArray[questionIndex].choices;
   for (var i = 0; i < userChoices.length; i++) {
     var multipleChoiceOp = userChoices[i];
-    var newLi = $("<li>", {
+    var newLi = $("<button>", {
       class: "btn btn-primary",
     }).text(multipleChoiceOp);
     choicesDisplay.append(newLi);
@@ -101,24 +109,26 @@ function displayQuestions() {
 
 // INSERT IF WRONG ANSWER, DEDUCT 5SECS
 
-function compareAnwers(event) {
-  // var choice(event) {
-
-  if (userChoices.matches(questionsArray[questionIndex].answer)) {
-    score++;
-    var rightAnswer = questionsArray[questionIndex].answer;
-    var createDiv = $("<div>", {
-      id: "did-they-get-it-right",
-    }).text("CORRECT!" + rightAnswer);
+function compareAnswers(event) {
+  event.preventDefault();
+  console.log($(this).text());
+  var userClick = $(this).text();
+  var rightAnswer = questionsArray[questionIndex].answer;
+  if (userClick === rightAnswer) {
+    rightText.show(function () {
+      setTimeout(() => {
+        rightText.hide();
+      }, 1500);
+    });
   } else {
-    timer = timer - penalty;
-    createDiv.text("Wrong Answer! The correct answer is: " + rightAnswer);
+    timer -= penalty;
+    wrongText.show(function () {
+      setTimeout(() => {
+        wrongText.hide();
+      }, 1500);
+    });
   }
-}
-if (questionIntex >= questionsArray.length) {
-  endQuiz();
-  createDiv.text("Well Done! The quiz is over, your final score is" + score);
-} else {
+  questionIndex++;
   displayQuestions();
 }
 
@@ -128,22 +138,24 @@ function endQuiz() {
   scoreBoard.show();
   startButton.show();
   initialsBar.show();
-  var presentFinalScore = scoreBoard.text("Your Final Score is: " + score);
+  clearInterval(timer);
+  var presentFinalScore = scoreBoard.text("Your Final Score is: " + timer);
+  // clearInterval
+  //
 }
 
 // **NEED SET ITEM FOR SCORES !!!
 function renderScores() {
   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
   scoreBoard.empty();
-  if (scoreBoard.legth === 0;) {
-    return scoreBoard
+  if (scoreBoard.legth === 0) {
+    return scoreBoard;
   }
   for (var i = 0; i < currentScores.length; i++) {
     var scoreObj = currentScores[i];
     var scoreLi = $("<li>", {
-      class: "list-group-item"
-    })
-      .text(scoreObj.initials + ":" scoreObj.score);
+      class: "list-group-item",
+    }).text(scoreObj.initials + ":" + scoreObj.score);
     scoreBoard.append(scoreLi);
   }
 }
