@@ -47,29 +47,19 @@
     </section>
 
 
-    <!-- Modal for end game -->
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
     <!-- div for final score -->
     <!-- initial, name etc -->
     <section class="d-flex justify-content-center pt-6 bg-secondary text-light flex-column align-items-center" >
         <h3 class="text-center" id="high-scores" >High Scores:</h3>
+        <form>
+  <div class="mb-3" id="initials-bar">
+      
+    <label for="exampleInputEmail1" class="form-label">Your Initials:</label>
+    <input type="initials" class="form-control" id="exampleInputEmail1" >
+     <button type="submit" class="btn btn-primary" id="initials-btn">Submit</button>
+    </div> 
+</form>
         <ul class="list-group list-group-flush bg-white">
             <!-- <li class="list-group-item">An item</li>
                     <li class="list-group-item">A second item</li>
@@ -77,11 +67,11 @@
                     <li class="list-group-item">A fourth item</li>
                     <li class="list-group-item">And a fifth one</li> -->
         </ul>
-        <div class="input-group mb-3" id="initials-bar">
+        <!-- <div class="input-group mb-3" id="initials-bar">
             <span class="input-group-text">Your Initials</span>
             <input type="text" class="form-control" aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default">
-        </div>
+        </div> -->
         </ul>
     </section>
     <!-- JQUERY  -->

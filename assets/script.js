@@ -1,5 +1,4 @@
 var startButton = $("#start-button");
-//quiz content
 var rightText = $(".user-is-right");
 var wrongText = $(".user-is-wrong");
 var questionDisplay = $("#questions");
@@ -46,11 +45,13 @@ var questionsArray = [
 var timerEl = $("#timer");
 var timer = 76;
 var penalty = 5;
+var score = 0;
 
 // var for scores
 var scoreBoard = $("#high-scores");
 var finalAlert = $("#final-alert");
 var initialsBar = $("#initials-bar");
+var initialsBtn = $("initials-btn");
 
 timerEl.hide();
 scoreBoard.hide();
@@ -75,16 +76,12 @@ function startQuiz() {
     timer--;
     timerEl.text("Time Remaining: " + timer + "s");
 
-    if (timer == 0 || questionIndex === 5) {
+    if (timer == 0 || questionIndex === questionsArray.length) {
       clearInterval(quizTimer);
       endQuiz();
       timerEl.text("End of Quiz!");
     }
   }, 1000);
-  //   if (questionIndex === 4) {
-  //     clearInterval(quizTimer);
-  //     endQuiz();
-  //   }
 }
 
 function displayQuestions() {
@@ -111,21 +108,21 @@ function displayQuestions() {
 
 function compareAnswers(event) {
   event.preventDefault();
-  console.log($(this).text());
+  //   console.log($(this).text());
   var userClick = $(this).text();
   var rightAnswer = questionsArray[questionIndex].answer;
   if (userClick === rightAnswer) {
     rightText.show(function () {
       setTimeout(() => {
         rightText.hide();
-      }, 1500);
+      }, 1000);
     });
   } else {
     timer -= penalty;
     wrongText.show(function () {
       setTimeout(() => {
         wrongText.hide();
-      }, 1500);
+      }, 1000);
     });
   }
   questionIndex++;
@@ -134,14 +131,19 @@ function compareAnswers(event) {
 
 function endQuiz() {
   questionDisplay.hide();
-  finalAlert.show();
   scoreBoard.show();
-  startButton.show();
+  //   startButton.show();
   initialsBar.show();
   clearInterval(timer);
   var presentFinalScore = scoreBoard.text("Your Final Score is: " + timer);
-  // clearInterval
-  //
+  var currentScores = JSON.parse(localStorage.getITem("finalscore")) || [];
+  var userInfo = {
+    initials,
+    score,
+  };
+  currentScores.push(userInfo);
+  localStorage.setItem("finalscore", JSON.stringify(currentScores));
+  renderScores();
 }
 
 // **NEED SET ITEM FOR SCORES !!!
@@ -149,13 +151,14 @@ function renderScores() {
   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
   scoreBoard.empty();
   if (scoreBoard.legth === 0) {
-    return scoreBoard;
+    return scoreBoard.text("No Scores Yet!");
   }
   for (var i = 0; i < currentScores.length; i++) {
     var scoreObj = currentScores[i];
     var scoreLi = $("<li>", {
       class: "list-group-item",
-    }).text(scoreObj.initials + ":" + scoreObj.score);
+    });
+    scoreLi.text(scoreObj.initials + ":" + scoreObj.score);
     scoreBoard.append(scoreLi);
   }
 }
