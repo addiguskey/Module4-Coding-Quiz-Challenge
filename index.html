@@ -21,6 +21,7 @@
       href="./assets/highscores/highscores.html"
       target="_blank"
       class="text-left w-auto text-primary"
+      id="high-scores-sheet"
       >View Highscores</a
     >
     <!-- title-->
@@ -30,7 +31,8 @@
     <!-- LOOK UP jQUERY FONT SIZE -->
     <div class="text-center w auto py-4 text-dark" id="instrucions">
       Note: This quiz is has a 75second time limit. Each incorrect answer will
-      penalize your time by 5 seconds
+      penalize your time by 5 seconds. Your final score will be the time left on
+      the clock.
     </div>
     <!-- Start Quiz Btn -->
     <!-- <section class="d-flex justify-content-center pt-6 bg-danger text-light felx-column align-items-center> -->
@@ -45,21 +47,21 @@
 
     <!-- Quiz Content Section-->
     <section id="quiz-content">
-      <div class="text-right w-auto text-dark" id="timer">
+      <div class="text-right w-10 text-light text-center" id="timer">
         Time Remaining: 75s
       </div>
       <!-- div for questions -->
       <div id="questions"></div>
       <!-- div for multiple choices -->
       <div class="d-grid gap-2" id="where-choices-go">
-        <!-- <button class="btn btn-primary" type="button"></button>
+        <!-- <button class="btn btn-danger" type="button"></button>
             <button class="btn btn-primary" type="button"></button>
             <button class="btn btn-primary" type="button"></button>
             <button class="btn btn-primary" type="button"></button> -->
       </div>
       <!-- div for Correct! Wrong! Display -->
       <div class="text-center w auto py-4 text-dark" id="did-they-get-it-right">
-        <p class="user-is-right">CORRECT!</p>
+        <p class="user-is-right">CORRECT! YEEHAW!🤠</p>
         <p class="user-is-wrong">wrong...😔</p>
       </div>
     </section>
@@ -70,7 +72,7 @@
     >
       <form>
         <div class="mb-3" id="initials-bar">
-          <label for="exampleInputEmail1" class="form-label"
+          <label for="exampleInputEmail1" class="form-label" id="user-initials"
             >Your Initials:</label
           >
           <input type="initials" class="form-control" id="exampleInputEmail1" />

@@ -10,7 +10,9 @@ clearBtn.on("click", function () {
 });
 // Start from begining
 retakeBtn.on("click", function () {
-  window.location.replace("index.html");
+  window.location.replace(
+    "https://addiguskey.github.io/Module4-Coding-Quiz-Challenge/"
+  );
 });
 // Retreives local stroage and displays
 var allScores = localStorage.getItem("allScores");

@@ -4,12 +4,17 @@
 - Change border-radius on all the btns (maybe in HTML with jQuery?)
 - CHANGE THE FONT SIZE OF THE QUESTIONS/ANSWER OPS 
 - CHANGE THE FONT SIZE OF .user-is-right .user-is-wrong 
-- 
+- CHANGE COLOR THEME ! 
 */
+
 body {
     padding: 1rem;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 2rem;
+    font-size: 1rem;
+}
+#high-scores-sheet {
+    text-decoration: none;
+    color:rgb(200, 74, 24)
 }
 
 /* TRY with #quiz-content */
@@ -27,16 +32,13 @@ body {
 }
 /* Time Remaining:  */
 #timer {
-    background-color: rgb(75, 156, 211);
-    margin-left: 33%;
-    padding: 15px 32px;
-    font-size: 20px;
-    color: white;
-    border: 2px solid black;
+    font-size: 1rem;
+    width: 20%;
+    background-color: coral;
 }
 
-#questions{
-    font-size: 4rem;
+#questions.li {
+    font-size: 2rem;
 }
 
 #where-choices-go {
@@ -45,10 +47,10 @@ body {
 
 .user-is-right {
     color: rgb(107, 139, 59);
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
 .user-is-wrong {
     color: rgb(179, 40, 40);
-    font-size: 3rem;
+    font-size: 1rem;
 }
