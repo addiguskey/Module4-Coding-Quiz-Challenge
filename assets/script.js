@@ -144,23 +144,26 @@ function endQuiz() {
   scoreBoard.show();
   initialsBar.show();
   clearInterval(timer);
-  var presentFinalScore = scoreBoard.text("Your Final Score is: " + timer);
-  // var scoreObj = currentScores[i];
-  initialsBtn.on("click", function () {
-    if (userInitials === "") {
+  scoreBoard.text("Your Final Score is: " + timer);
+  initialsBtn.on("click", function (event) {
+    event.preventDefault();
+    var userInitials = $("#user-initials");
+    var userInput = userInitials.val();
+    if (userInput === "") {
       console.log("No value entered!");
     } else {
       var scoreLi = $("<li>", {
-        class: "list-group-item",
+        class: "list-group-item bg-dark text-white",
       });
-      scoreLi.text(userInitials + ":" + timer);
+      scoreLi.text(userInput + ":  " + timer);
       scoreBoard.append(scoreLi);
     }
-    var finalScore = {
-      presentFinalScore,
-      score,
-    };
-    console.log(userInfo);
+
+    // var finalScore = {
+    //   userInput,
+    //   timer,
+    // };
+    console.log(finalScore);
     var allScores = localStorage.getItem("allScores");
     if (allScores === null) {
       allScores = [];
@@ -170,7 +173,7 @@ function endQuiz() {
     allScores.push(finalScore);
     var newScore = JSON.stringify(allScores);
     localStorage.setItem("allScores", newScore);
-    window.location.replace("./highscores/highscores.html");
+    window.location.replace("./assets/highscores/highscores.html");
   });
   //   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
 
