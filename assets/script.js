@@ -148,21 +148,22 @@ function endQuiz() {
   initialsBtn.on("click", function (event) {
     event.preventDefault();
     var userInitials = $("#user-initials");
-    var userInput = userInitials.val();
-    if (userInput === "") {
+    userInitials.type = "text";
+    userInitials.empty();
+    if (userInitials === "") {
       console.log("No value entered!");
     } else {
       var scoreLi = $("<li>", {
         class: "list-group-item bg-dark text-white",
       });
-      scoreLi.text(userInput + ":  " + timer);
+      scoreLi.text(userInitials + ":  " + timer);
       scoreBoard.append(scoreLi);
     }
 
-    // var finalScore = {
-    //   userInput,
-    //   timer,
-    // };
+    var userScore = {
+      userInitials,
+      timer,
+    };
     console.log(finalScore);
     var allScores = localStorage.getItem("allScores");
     if (allScores === null) {
@@ -175,27 +176,27 @@ function endQuiz() {
     localStorage.setItem("allScores", newScore);
     window.location.replace("./assets/highscores/highscores.html");
   });
-  //   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
+  var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
 
-  //   currentScores.push(userInfo);
-  //   localStorage.setItem("finalscore", JSON.stringify(userInfo));
-  //   renderScores();
+  currentScores.push(userInfo);
+  localStorage.setItem("finalscore", JSON.stringify(userInfo));
+  renderScores();
 }
 
 // function for retreiving scores
-// function renderScores(event) {
-//   event.preventDefault();
-//   var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
-//   scoreBoard.empty();
-//   if (scoreBoard.legth === 0) {
-//     return scoreBoard.text("No Scores Yet!");
-//   }
-//   for (var i = 0; i < currentScores.length; i++) {
-//     var scoreObj = currentScores[i];
-//     var scoreLi = $("<li>", {
-//       class: "list-group-item",
-//     });
-//     scoreLi.text(scoreObj.initials + ":" + scoreObj.score);
-//     scoreBoard.append(scoreLi);
-//   }
-// }
+function renderScores(event) {
+  event.preventDefault();
+  var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
+  scoreBoard.empty();
+  if (scoreBoard.legth === 0) {
+    return scoreBoard.text("No Scores Yet!");
+  }
+  for (var i = 0; i < currentScores.length; i++) {
+    var scoreObj = currentScores[i];
+    var scoreLi = $("<li>", {
+      class: "list-group-item",
+    });
+    scoreLi.text(scoreObj.initials + ":" + scoreObj.score);
+    scoreBoard.append(scoreLi);
+  }
+}
