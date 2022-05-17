@@ -49,22 +49,20 @@ var score = 0;
 
 // var for the scoreboard
 var scoreBoard = $("#high-scores");
-var initialsBar = $("#initials-bar");
+var userRecord = $("#user-record");
 var userInitials = $("#user-initials");
-var initialsBtn = $("#initials-btn");
 
 // Default View
 timerEl.hide();
 scoreBoard.hide();
 choicesDisplay.hide();
-initialsBar.hide();
+userRecord.hide();
 rightText.hide();
 wrongText.hide();
 
 //EventListeners for StartQuiz, compareAsnwers, renderScores
 startButton.on("click", startQuiz);
 choicesDisplay.on("click", "button", compareAnswers);
-// initialsBtn.on("click", renderScores);
 
 // startQuiz:
 // show timer, show multiChoice, set timer, if we run out of questions || timer === 0; run function endQuiz
@@ -142,61 +140,34 @@ function compareAnswers(event) {
 function endQuiz() {
   questionDisplay.hide();
   scoreBoard.show();
-  initialsBar.show();
+  userRecord.show();
   clearInterval(timer);
-  scoreBoard.text("Your Final Score is: " + timer);
-  initialsBtn.on("click", function (event) {
-    event.preventDefault();
-    var userInitials = $("#user-initials");
-    userInitials.type = "text";
-    userInitials.empty();
-    if (userInitials === "") {
-      console.log("No value entered!");
-    } else {
-      var scoreLi = $("<li>", {
-        class: "list-group-item bg-dark text-white",
-      });
-      scoreLi.text(userInitials + ":  " + timer);
-      scoreBoard.append(scoreLi);
-    }
 
-    var userScore = {
-      userInitials,
-      timer,
-    };
-    console.log(finalScore);
-    var allScores = localStorage.getItem("allScores");
-    if (allScores === null) {
-      allScores = [];
-    } else {
-      allScores = JSON.parse(allScores);
-    }
-    allScores.push(finalScore);
-    var newScore = JSON.stringify(allScores);
-    localStorage.setItem("allScores", newScore);
-    window.location.replace("./assets/highscores/highscores.html");
-  });
-  var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
-
-  currentScores.push(userInfo);
-  localStorage.setItem("finalscore", JSON.stringify(userInfo));
+  var initials = prompt(
+    "Your Final Score is: " + timer + "Please enter your initials"
+  );
+  var currentScores = JSON.parse(localStorage.getItem("quizScore")) || [];
+  var playerObj = {
+    initials,
+    timer,
+  };
+  currentScores.push(playerObj);
+  localStorage.setItem("quizScore", JSON.stringify(currentScores));
   renderScores();
 }
 
 // function for retreiving scores
-function renderScores(event) {
-  event.preventDefault();
-  var currentScores = JSON.parse(localStorage.getItem("finalscore")) || [];
+function renderScores() {
+  var currentScores = JSON.parse(localStorage.getItem("quizScore")) || [];
   scoreBoard.empty();
-  if (scoreBoard.legth === 0) {
-    return scoreBoard.text("No Scores Yet!");
-  }
+
   for (var i = 0; i < currentScores.length; i++) {
     var scoreObj = currentScores[i];
     var scoreLi = $("<li>", {
       class: "list-group-item",
     });
-    scoreLi.text(scoreObj.initials + ":" + scoreObj.score);
+    scoreLi.text(scoreObj.initials + ":" + scoreObj.timer);
     scoreBoard.append(scoreLi);
+    //   scoreBoard.text(userScore.initlas + timer);
   }
 }

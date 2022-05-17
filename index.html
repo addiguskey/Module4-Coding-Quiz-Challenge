@@ -65,34 +65,16 @@
         <p class="user-is-wrong">wrong...😔</p>
       </div>
     </section>
-
-    <!-- initial form/submit -->
+    <!-- Score Board -->
     <section
-      class="d-flex justify-content-center pt-6 bg-secondary text-light flex-column align-items-center"
+      class="d-flex justify-content-center pt-6 flex-column align-items-center"
     >
-      <form>
-        <div class="mb-3" id="initials-bar">
-          <label for="exampleInput" class="form-label" id="user-initials"
-            >Your Initials:</label
-          >
-          <input type="initials" class="form-control" id="user-initials" />
-          <button type="submit" class="btn btn-primary" id="initials-btn">
-            Submit
-          </button>
-        </div>
-      </form>
-      <!-- Li for ScoreBoard -->
-      <section class="text-center" id="high-scores">
-        High Scores:
-        <ul class="list-group list-group-flush bg-dark text-white">
-          <!-- <li class="list-group-item"></li>
-            <li class="list-group-item"></li>
-            <li class="list-group-item"></li>
-            <li class="list-group-item"></li>
-            <li class="list-group-item"></li> -->
-        </ul>
-      </section>
+      <div class="card">
+        <h3 class="text-center" id="high-scores">Score Board</h3>
+        <ul class="list-group" id="user-record"></ul>
+      </div>
     </section>
+
     <!-- JQUERY  -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
