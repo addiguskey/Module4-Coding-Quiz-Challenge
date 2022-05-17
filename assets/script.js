@@ -5,35 +5,35 @@ var questionIndex = 0;
 var questionsArray = [
   {
     question: "Commonly used data styles do NOT include:",
-    choices: ["strings", "booleans", "alerts", "numbers"],
-    answer: "alerts",
+    choices: ["Strings", "Booleans", "Alerts", "Numbers"],
+    answer: "Alerts",
   },
   {
     question:
       "The condition in an if / else statement is enclosed within ____.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses",
+    choices: ["Quotes", "Curly brackets", "Parentheses", "Square brackets"],
+    answer: "Parentheses",
   },
   {
     question: "Arrays in Javascript can be used to store ____.",
     choices: [
-      "numbers and strings",
-      "other arrays",
-      "booleans",
-      "all of the above",
+      "Numbers & Strings",
+      "Other arrays",
+      "Booleans",
+      "All of the above",
     ],
-    answer: "all of the above",
+    answer: "All of the above",
   },
   {
     question:
       "String values must be enclosed within ____ when being assigned to variables.",
-    choices: ["commas", "curly brackets", "quotes", "parentheses"],
-    answer: "quotes",
+    choices: ["Commas", "Curly brackets", "Quotes", "Parentheses"],
+    answer: "Quotes",
   },
   {
     question:
       "A very useful tool for used during development and debugging for printing content to the debugger is:",
-    choices: ["Javascript", "terminal / bash", "for loops", "console.log"],
+    choices: ["Javascript", "Terminal / Bash", "for Loops", "console.log"],
     answer: "console.log",
   },
 ];
@@ -84,7 +84,6 @@ function startQuiz(event) {
       var newH3 = $("<h3>", {
         class: "text-center w-auto py-4 text-dark",
       }).text("End of Quiz!");
-      //   choicesDisplay.text("End of Quiz!");
       endQuiz();
     }
   }, 1000);
@@ -95,10 +94,9 @@ function displayQuestions() {
   questionDisplay.empty();
   choicesDisplay.empty();
 
-  //   for (var i = 0; i < questionsArray.length; i++) {
   var userQuestions = questionsArray[questionIndex].question;
   questionDisplay.text(userQuestions);
-  //   }
+
   var userChoices = questionsArray[questionIndex].choices;
   for (var i = 0; i < userChoices.length; i++) {
     var multipleChoiceOp = userChoices[i];
@@ -144,7 +142,7 @@ function endQuiz() {
   clearInterval(timer);
 
   var initials = prompt(
-    "Your Final Score is: " + timer + "Please enter your initials"
+    "Your Final Score is: " + timer + "   Please enter your initials"
   );
   var currentScores = JSON.parse(localStorage.getItem("quizScore")) || [];
   var playerObj = {
@@ -168,6 +166,5 @@ function renderScores() {
     });
     scoreLi.text(scoreObj.initials + ":" + scoreObj.timer);
     scoreBoard.append(scoreLi);
-    //   scoreBoard.text(userScore.initlas + timer);
   }
 }
